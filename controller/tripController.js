@@ -315,7 +315,7 @@ const startTrip = async (req, res) => {
     // Validate tripBoxes if provided
     if (tripBoxes.length > 0) {
       for (const b of tripBoxes) {
-        if (!b.box_id || b.newQttOut < 0) {
+        if (!b.box_id || b.newQttOut < 0 || b.qttOut < 0) {
           throw new CustomError.BadRequestError(
             `Boîte ID ${b.box_id} invalide ou quantité négative.`
           );
@@ -698,15 +698,10 @@ const finishTrip = async (req, res) => {
         product.qttReutour = tripProduct.qttReutour;
         product.qttReutourUnite = tripProduct.qttReutourUnite;
 
-        const totalUnitsOut =
-          _product.capacityByBox * (product.qttOut || 0) +
-          (product.qttOutUnite || 0);
-        const totalUnitsReturned =
-          _product.capacityByBox * (tripProduct.qttReutour || 0) +
-          (tripProduct.qttReutourUnite || 0);
+        const totalUnitsOut = _product.capacityByBox * (product.qttOut || 0) + (product.qttOutUnite || 0);
+        const totalUnitsReturned = _product.capacityByBox * (tripProduct.qttReutour || 0) + (tripProduct.qttReutourUnite || 0);
         const totalUnitsWasted = wasteQtt;
-        product.qttVendu =
-          totalUnitsOut - totalUnitsReturned - totalUnitsWasted;
+        product.qttVendu = totalUnitsOut - totalUnitsReturned ;
 
         if (product.qttVendu < 0) {
           throw new CustomError.BadRequestError(

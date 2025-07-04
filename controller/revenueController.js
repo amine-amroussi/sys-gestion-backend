@@ -91,7 +91,7 @@ const getFinancialSummary = async (req, res) => {
 
     // Fetch payments
     const payments = await PaymentEmployee.findAll({
-      where: paymentDateFilter,
+      where: {...paymentDateFilter, status: 'Paid'},
       attributes: ['payment_id', 'month', 'year', 'net_pay'],
     });
     const totalPayments = payments.reduce((sum, payment) => sum + (parseFloat(payment.net_pay) || 0), 0);
