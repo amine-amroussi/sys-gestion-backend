@@ -115,8 +115,8 @@ const getFinancialSummary = async (req, res) => {
 
     // fetch Wastes
     const wastes = await Waste.findAll({
-      where: {createdAt: dateFilter.date},
-      attributes: ['product',  'qtt'],
+      where: {createdAt: dateFilter.date, type : "Change"},
+      attributes: ['product',  'qtt', "type"],
       include: [
         {
           model: Product,
@@ -125,6 +125,9 @@ const getFinancialSummary = async (req, res) => {
         },
       ],
     })
+
+    console.log("Wastes List");
+    console.log(JSON.stringify(wastes));
 
     
 
