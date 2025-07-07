@@ -1068,7 +1068,7 @@ const emptyTruck = async (req, res) => {
     );
 
     await db.TripBox.update(
-      { qttIn: 0},
+      { qttIn: 0 , qttOut: 0},
       { where: { trip: lastTrip.id }, transaction }
     );
 
