@@ -15,7 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     receivedAmount: { type: DataTypes.DECIMAL(10, 2), defaultValue: 0 },
     benefit: { type: DataTypes.DECIMAL(10, 2), defaultValue: 0 },
     deff : { type: DataTypes.DECIMAL(10, 2), defaultValue: 0 },
-    isActive: { type: DataTypes.BOOLEAN, defaultValue: true }
+    isActive: { type: DataTypes.BOOLEAN, defaultValue: true },
+    isEmpty : { type: DataTypes.BOOLEAN, defaultValue: false },
   }, { tableName: 'Trip', timestamps: false });
 
   Trip.associate = (models) => {
